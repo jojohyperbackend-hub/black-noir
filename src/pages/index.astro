@@ -1,0 +1,327 @@
+---
+import BaseLayout   from "../layouts/BaseLayout.astro";
+import Header       from "../components/Header.astro";
+import PerfumeScene from "../components/PerfumeScene.tsx";
+
+const IMG = "/public/noir-bottle.png";
+---
+
+<BaseLayout
+  title="NOIR — Eau de Parfum | Enter the Darkness"
+  description="An effortlessly descent into darkness. A composition of uncompromising depth and shadow. Limited to 500 bottles globally."
+>
+  <Header />
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero__scene">
+      <PerfumeScene client:load />
+    </div>
+    <div class="hero__vignette" />
+
+    <div class="container hero__body">
+      <div class="hero__content">
+        <p class="chapter-label animate-fade-up">Chapter I</p>
+
+        <h1 class="hero__title animate-fade-up animate-fade-up--delay-1">
+          NOIR
+        </h1>
+
+        <p class="hero__sub animate-fade-up animate-fade-up--delay-2">
+          An effortlessly descent into darkness.<br />
+          A composition of uncompromising<br />
+          depth and shadow.
+        </p>
+
+        <a href="#collection" data-scroll class="btn btn--outline animate-fade-up animate-fade-up--delay-3">
+          Discover the Reserve
+          <span class="btn__arrow" />
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="scroll-indicator__label">Scroll</span>
+      <span class="scroll-indicator__line" />
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="section section-quote" id="quote">
+    <div class="container">
+      <p class="quote reveal">
+        "Some fragrances whisper.<br />
+        <em>NOIR does not.</em>"
+      </p>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section class="section" id="notes">
+    <div class="container">
+
+      <div class="notes__header reveal">
+        <p class="chapter-label notes__vertical">Architecture</p>
+        <h2 class="text-title">The Architecture of Shadow</h2>
+      </div>
+
+      <div class="ingredients">
+
+        <div class="ingredient-item reveal">
+          <span class="ingredient-item__index">01</span>
+          <div>
+            <h3 class="ingredient-item__name">Cambodian Oud</h3>
+            <p class="ingredient-item__desc">
+              Extracted centuries deep from cambodian trees, providing its imperishable foundation.
+            </p>
+            <div class="ingredient-item__tags">
+              <span class="tag">Smoky</span>
+              <span class="tag">Resinous</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ingredient-item reveal">
+          <span class="ingredient-item__index">02</span>
+          <div>
+            <h3 class="ingredient-item__name">Black Rose Damascena</h3>
+            <p class="ingredient-item__desc">
+              Harvested exclusively at midnight in the eastern valley. A velvety, decadent facet that plays into the darkness.
+            </p>
+            <div class="ingredient-item__tags">
+              <span class="tag">Floral</span>
+              <span class="tag">Dark</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ingredient-item reveal">
+          <span class="ingredient-item__index">03</span>
+          <div>
+            <h3 class="ingredient-item__name">Haitian Vetiver</h3>
+            <p class="ingredient-item__desc">
+              Earthy, smoky and intensely rugged. The base. It's rooting that illuminates the chaos.
+            </p>
+            <div class="ingredient-item__tags">
+              <span class="tag">Earthy</span>
+              <span class="tag">Woody</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL — 1 jpg -->
+  <section class="editorial" id="story">
+    <div
+      class="editorial__bg"
+      style={`background-image: url('${IMG}')`}
+    />
+    <div class="editorial__overlay" />
+    <div class="container editorial__content">
+      <p class="chapter-label reveal" style="margin-bottom: 2rem">Those who dare</p>
+      <h2 class="editorial__headline reveal">
+        Worn by those<br />
+        who need no<br />
+        introduction.
+      </h2>
+    </div>
+  </section>
+
+  <!-- COLLECTION — 3 cards, same 1 jpg, beda CSS filter -->
+  <section class="section" id="collection">
+    <div class="container">
+
+      <div class="collection__header reveal">
+        <h2 class="text-ui" style="letter-spacing:0.3em">The Collection</h2>
+        <a href="#acquire" data-scroll class="btn btn--ghost">View All</a>
+      </div>
+
+      <div class="collection-grid collection-grid--single" style="margin-top: var(--space-xl)">
+
+        <div class="collection-card reveal">
+          <div class="collection-card__image">
+            <img src={IMG} alt="NOIR Extrait de Parfum" loading="lazy" />
+          </div>
+          <div class="collection-card__body">
+            <p class="collection-card__name">NOIR</p>
+            <p class="collection-card__sub">Extrait de Parfum · 50ml</p>
+            <p class="collection-card__price">$225</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section" id="acquire">
+    <div class="container">
+      <p class="chapter-label cta-section__eyebrow reveal">
+        Limited to 500 bottles globally
+      </p>
+      <h2 class="cta-section__title reveal">
+        Enter the<br />Darkness
+      </h2>
+      <a href="#" class="btn btn--gold reveal" style="margin-top: var(--space-xl)">
+        Acquire Noir
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__logo">NOCTURNE</p>
+      <p class="footer__tagline">Maison de Parfum · Est. MMXXIV</p>
+
+      <nav class="footer__links">
+        <a href="#collection" data-scroll>Collection</a>
+        <a href="#notes"      data-scroll>Notes</a>
+        <a href="#story"      data-scroll>Story</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </nav>
+
+      <p class="footer__copy">
+        &copy; {new Date().getFullYear()} Nocturne. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .hero__scene {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero__vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse 65% 80% at 68% 50%, transparent 25%, rgba(10,10,10,0.72) 100%),
+      linear-gradient(to right, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.25) 52%, transparent 100%);
+  }
+  .hero__body {
+    position: relative;
+    z-index: 2;
+  }
+  .hero__content {
+    max-width: 500px;
+    padding-top: clamp(5rem, 10vw, 7rem);
+  }
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 14vw, 11rem);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    margin-block: var(--space-md) var(--space-lg);
+    color: var(--color-white);
+  }
+  .hero__sub {
+    font-size: var(--fs-sm);
+    font-weight: 200;
+    color: var(--color-muted);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Notes */
+  .notes__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+  .notes__vertical {
+    writing-mode: vertical-rl;
+    letter-spacing: 0.3em;
+  }
+
+  /* Collection header */
+  .collection__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-md);
+  }
+
+  /* Single-card collection */
+  .collection-grid--single {
+    display: flex;
+    justify-content: center;
+  }
+  .collection-grid--single .collection-card {
+    max-width: 360px;
+    width: 100%;
+  }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity   0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .hero__title   { font-size: clamp(4rem, 20vw, 7rem); }
+    .hero__content { max-width: 100%; }
+    .notes__header { flex-direction: column; gap: var(--space-sm); }
+    .notes__vertical { writing-mode: horizontal-tb; }
+  }
+</style>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll<HTMLAnchorElement>("[data-scroll]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const href = el.getAttribute("href");
+      if (!href?.startsWith("#")) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el    = entry.target as HTMLElement;
+        const delay = parseFloat(el.style.transitionDelay || "0") * 1000;
+        setTimeout(() => el.classList.add("visible"), delay);
+        observer.unobserve(el);
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>

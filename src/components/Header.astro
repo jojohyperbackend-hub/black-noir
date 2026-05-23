@@ -1,0 +1,199 @@
+---
+interface NavLink {
+  label: string;
+  href:  string;
+}
+
+const navLinks: NavLink[] = [
+  { label: "Collection", href: "#collection"  },
+  { label: "Notes",      href: "#notes"       },
+  { label: "Story",      href: "#story"       },
+  { label: "Acquire",    href: "#acquire"     },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+>
+  <div class="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-20">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <!-- Brand -->
+      <a
+        href="#hero"
+        data-scroll
+        class="brand font-display text-lg md:text-xl tracking-[0.45em] uppercase text-white
+               hover:text-gold transition-colors duration-300"
+      >
+        NOIR
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-10">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-scroll
+            class="nav-link font-body text-[11px] font-light tracking-[0.22em] uppercase
+                   text-muted hover:text-gold transition-colors duration-300 relative group"
+          >
+            {link.label}
+            <!-- underline hover -->
+            <span
+              class="absolute -bottom-0.5 left-0 w-0 h-px bg-gold
+                     transition-all duration-300 group-hover:w-full"
+            />
+          </a>
+        ))}
+      </nav>
+
+      <!-- CTA desktop -->
+      <a
+        href="#acquire"
+        data-scroll
+        class="hidden md:inline-flex items-center gap-2 font-body text-[11px] font-light
+               tracking-[0.22em] uppercase text-white border border-gold/30
+               px-5 py-2.5 hover:border-gold hover:text-gold
+               transition-all duration-300"
+      >
+        Discover
+        <span class="arrow-line w-4 h-px bg-current relative inline-block transition-all duration-300">
+          <span class="absolute right-0 -top-[3px] w-1.5 h-1.5 border-r border-t border-current rotate-45" />
+        </span>
+      </a>
+
+      <!-- Hamburger mobile -->
+      <button
+        id="menu-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        class="md:hidden flex flex-col gap-[5px] p-2 z-50"
+      >
+        <span id="bar-1" class="w-6 h-px bg-white transition-all duration-300 origin-center" />
+        <span id="bar-2" class="w-4 h-px bg-white transition-all duration-300 self-end" />
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Nav Drawer -->
+  <div
+    id="mobile-nav"
+    class="md:hidden fixed inset-0 bg-black/95 backdrop-blur-xl
+           flex flex-col items-center justify-center gap-10
+           translate-x-full transition-transform duration-500 ease-in-out z-40"
+    aria-hidden="true"
+  >
+    {navLinks.map((link, i) => (
+      <a
+        href={link.href}
+        data-scroll
+        data-mobile-link
+        class="font-display text-4xl font-light tracking-[0.08em] text-white
+               hover:text-gold transition-colors duration-300"
+        style={`transition-delay: ${i * 60}ms`}
+      >
+        {link.label}
+      </a>
+    ))}
+
+    <div class="w-12 h-px bg-gold/30 mt-4" />
+
+    <a
+      href="#acquire"
+      data-scroll
+      data-mobile-link
+      class="font-body text-xs tracking-[0.25em] uppercase text-muted
+             hover:text-gold transition-colors duration-300"
+    >
+      Acquire — Noir Collection
+    </a>
+  </div>
+</header>
+
+<script>
+  // ── Scroll-aware header styling ──────────────────────────
+  const header = document.getElementById("site-header")!;
+
+  function onScroll() {
+    if (window.scrollY > 40) {
+      header.classList.add("bg-black/80", "backdrop-blur-xl", "border-b", "border-white/5", "shadow-2xl");
+      header.classList.remove("bg-transparent");
+    } else {
+      header.classList.remove("bg-black/80", "backdrop-blur-xl", "border-b", "border-white/5", "shadow-2xl");
+      header.classList.add("bg-transparent");
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll(); // run on load
+
+  // ── Smooth scroll untuk semua [data-scroll] ──────────────
+  document.querySelectorAll<HTMLAnchorElement>("[data-scroll]").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (!href?.startsWith("#")) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Tutup mobile nav kalau link dari sana
+      if (link.dataset.mobileLink !== undefined) closeMobileNav();
+    });
+  });
+
+  // ── Mobile nav toggle ────────────────────────────────────
+  const toggle    = document.getElementById("menu-toggle")!;
+  const mobileNav = document.getElementById("mobile-nav")!;
+  const bar1      = document.getElementById("bar-1")!;
+  const bar2      = document.getElementById("bar-2")!;
+
+  let isOpen = false;
+
+  function openMobileNav() {
+    isOpen = true;
+    mobileNav.classList.remove("translate-x-full");
+    mobileNav.removeAttribute("aria-hidden");
+    toggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+
+    // X icon
+    bar1.style.transform  = "translateY(3px) rotate(45deg)";
+    bar2.style.width      = "24px";
+    bar2.style.transform  = "translateY(-2px) rotate(-45deg)";
+  }
+
+  function closeMobileNav() {
+    isOpen = false;
+    mobileNav.classList.add("translate-x-full");
+    mobileNav.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+
+    // Hamburger icon
+    bar1.style.transform = "";
+    bar2.style.width     = "16px";
+    bar2.style.transform = "";
+  }
+
+  toggle.addEventListener("click", () => isOpen ? closeMobileNav() : openMobileNav());
+
+  // Tutup kalau tekan Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen) closeMobileNav();
+  });
+</script>
+
+<style is:global>
+  /* Font shorthand classes — pastikan sudah didefinisikan di global.css */
+  .font-display { font-family: var(--font-display); }
+  .font-body    { font-family: var(--font-body); }
+  .text-gold    { color: var(--color-gold); }
+  .text-muted   { color: var(--color-muted); }
+  .bg-gold      { background-color: var(--color-gold); }
+  .border-gold  { border-color: var(--color-gold); }
+</style>

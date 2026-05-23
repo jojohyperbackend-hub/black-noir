@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?:        string;
+  description?:  string;
+  ogImage?:      string;
+  canonicalUrl?: string;
+}
+
+const {
+  title        = "NOIR — Eau de Parfum | Enter the Darkness",
+  description  = "An effortlessly descent into darkness. A composition of uncompromising depth and shadow. Limited to 500 bottles globally.",
+  ogImage      = "/noir-bottle.png",
+  canonicalUrl = Astro.url.href,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary SEO -->
+    <title>{title}</title>
+    <meta name="description"        content={description} />
+    <meta name="keywords"           content="noir perfume, luxury fragrance, eau de parfum, oud, black rose, nocturne" />
+    <meta name="author"             content="NOIR Nocturne" />
+    <meta name="robots"             content="index, follow" />
+    <link rel="canonical"           href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type"         content="website" />
+    <meta property="og:url"          content={canonicalUrl} />
+    <meta property="og:title"        content={title} />
+    <meta property="og:description"  content={description} />
+    <meta property="og:image"        content={ogImage} />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name"    content="NOIR" />
+    <meta property="og:locale"       content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <!-- Favicon -->
+    <link rel="icon"             type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Theme color -->
+    <meta name="theme-color"             content="#0a0a0a" />
+    <meta name="msapplication-TileColor" content="#0a0a0a" />
+
+    <!-- Preconnect Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+
+  <body>
+    <!-- Custom cursor -->
+    <div class="cursor"      id="cursor"      aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+    <!-- Page content -->
+    <slot />
+
+    <script>
+      const cursor     = document.getElementById("cursor");
+      const cursorRing = document.getElementById("cursor-ring");
+
+      let mouseX = 0, mouseY = 0;
+      let ringX  = 0, ringY  = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (cursor) {
+          cursor.style.left = mouseX + "px";
+          cursor.style.top  = mouseY + "px";
+        }
+      });
+
+      // Smooth lagging ring
+      (function animateRing() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        if (cursorRing) {
+          cursorRing.style.left = ringX + "px";
+          cursorRing.style.top  = ringY + "px";
+        }
+        requestAnimationFrame(animateRing);
+      })();
+
+      // Hover grow effect
+      document.querySelectorAll("a, button, [data-scroll]").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursor?.classList.add("is-hover");
+          cursorRing?.classList.add("is-hover");
+        });
+        el.addEventListener("mouseleave", () => {
+          cursor?.classList.remove("is-hover");
+          cursorRing?.classList.remove("is-hover");
+        });
+      });
+    </script>
+
+    <style is:global>
+      .cursor.is-hover {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0.6;
+        mix-blend-mode: normal;
+      }
+      .cursor-ring.is-hover {
+        width: 52px;
+        height: 52px;
+        border-color: rgba(201, 169, 110, 0.2);
+      }
+    </style>
+  </body>
+</html>
