@@ -72,10 +72,10 @@ noir-perfume/
 
 ```bash
 # Clone project
-git clone https://github.com/username/noir-perfume.git
+git clone https://github.com/jojohyperbackend-hub/black-noir.git
 
 # Masuk ke folder
-cd noir-perfume
+cd black-noir
 ```
 
 ### Install Dependencies
